@@ -3,6 +3,8 @@ package br.com.zaul.util.dao.impl.jpa;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -20,7 +22,11 @@ public abstract class JpaDAOImpl<T, PK extends Serializable> implements GenericD
 	/** */
 	protected abstract EntityManager getEntityManager();
 	/** */
+	@Resource
+	private SessionContext sessionContext;
+	/** */
 	private Class<T> entityClass;
+	
 	
 	/**
 	 * 
@@ -51,8 +57,13 @@ public abstract class JpaDAOImpl<T, PK extends Serializable> implements GenericD
 	 * 
 	 */
 	@Override
-	public void delete(T object) {
-		this.getEntityManager().remove(object);
+	public void delete(PK id) {
+		StringBuilder jpql = new StringBuilder("DELETE FROM " + entityClass.getName() + " ");
+		jpql.append("WHERE id = :id");
+		Query query = this.getEntityManager().createQuery(jpql.toString());
+		query.setParameter("id", id);
+		
+		query.executeUpdate();
 	}
 
 	/**
@@ -74,4 +85,14 @@ public abstract class JpaDAOImpl<T, PK extends Serializable> implements GenericD
 		return query.getResultList();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	protected SessionContext getSessionContext() {
+		return this.sessionContext;
+	}
+
+	
+	
 }
