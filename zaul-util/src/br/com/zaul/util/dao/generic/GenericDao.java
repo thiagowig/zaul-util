@@ -9,7 +9,7 @@ public interface GenericDao <T, PK extends Serializable> {
 
     void update(T object);
 
-    void delete(T object);
+    void delete(PK id);
 
     T findByPK(PK id);
 
