@@ -63,10 +63,10 @@ public abstract class HibernateDAOImpl<T, PK extends Serializable> implements Ge
 	 * 
 	 */
 	@Override
-	public void delete(T object) {
+	public void delete(PK id) {
 		this.BeginTransaction();
 
-		this.session.delete(object);
+		this.session.delete(this.findByPK(id));
 
 		this.CommitTransaction();
 	}
