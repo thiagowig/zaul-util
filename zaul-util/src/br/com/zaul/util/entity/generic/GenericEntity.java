@@ -1,4 +1,4 @@
-package br.com.zaul.util.entity;
+package br.com.zaul.util.entity.generic;
 
 import java.io.Serializable;
 

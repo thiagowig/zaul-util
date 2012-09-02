@@ -1,4 +1,4 @@
-package br.com.zaul.util.entity;
+package br.com.zaul.util.entity.generic;
 
 import java.util.Calendar;
 
@@ -8,6 +8,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+
+import br.com.zaul.util.entity.impl.User;
 
 @MappedSuperclass
 public abstract class ExpandableEntity implements GenericEntity, AuditableEntity {
