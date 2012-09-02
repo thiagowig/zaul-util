@@ -58,12 +58,9 @@ public abstract class JpaDAOImpl<T, PK extends Serializable> implements GenericD
 	 */
 	@Override
 	public void delete(PK id) {
-		StringBuilder jpql = new StringBuilder("DELETE FROM " + entityClass.getName() + " ");
-		jpql.append("WHERE id = :id");
-		Query query = this.getEntityManager().createQuery(jpql.toString());
-		query.setParameter("id", id);
+		T obj = this.findByPK(id);
 		
-		query.executeUpdate();
+		this.getEntityManager().remove(obj);
 	}
 
 	/**
